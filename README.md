@@ -6,7 +6,13 @@ Python の構文を変更するマクロではなく、通常の `if` に渡せ�
 ```python
 from jev_if import jev
 
-message = "余分に払った分を返してください。"
+sample_messages = [
+    "同じ商品が二重に請求されています。余分に払った分を返してください。",
+    "届いた商品に傷がありました。交換をお願いできますか？",
+    "注文した商品はいつ発送されますか？",
+    "商品の使い方が分からないので、説明書を送ってください。",
+]
+message = sample_messages[0]  # 0〜3を変更すると別の例を試せます
 
 if jev("顧客は返金を求めていますか？", state={"message": message}, threshold=0.8):
     print("返金希望")
@@ -28,6 +34,7 @@ $env:TYPESAFE_API_KEY = "自分のAPIキー"
 ```
 
 API キーは [TypeSafe Console](https://console.typesafe.ai) で取得します。
+`TypeSafeClient` は `TYPESAFE_API_KEY` 環境変数から API キーを読み込みます。API キー本体はソースコードや Git にコミットしないでください。
 このフォルダでは `.venv` と依存パッケージを準備済みです。
 
 ## 判定の仕組み
