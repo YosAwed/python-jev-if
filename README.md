@@ -26,15 +26,28 @@ else:
 
 ## セットアップ（Windows PowerShell、Python 3.10 以上）
 
+まず [TypeSafe Console](https://console.typesafe.ai/) にログインまたはアカウントを作成し、API キーを発行・コピーしてください。
+
 ```powershell
 python -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-$env:TYPESAFE_API_KEY = "自分のAPIキー"
+$env:TYPESAFE_API_KEY = "取得したAPIキー"
 & .\.venv\Scripts\python.exe example.py
 ```
 
-API キーは [TypeSafe Console](https://console.typesafe.ai) で取得します。
-`TypeSafeClient` は `TYPESAFE_API_KEY` 環境変数から API キーを読み込みます。API キー本体はソースコードや Git にコミットしないでください。
+`TypeSafeClient` は `TYPESAFE_API_KEY` 環境変数から API キーを読み込みます。上の `$env:` での設定は現在の PowerShell セッションだけに有効なので、PowerShell を開き直した場合は再設定してください。
+
+次回以降も使えるように Windows ユーザー環境変数として保存する場合は、次のコマンドを使います。設定後は新しい PowerShell を開いてください。
+
+```powershell
+[Environment]::SetEnvironmentVariable(
+    "TYPESAFE_API_KEY",
+    "取得したAPIキー",
+    "User"
+)
+```
+
+API キー本体はソースコード、README、`.env`、Git にコミットしないでください。サンプルの実行には API キーが必要ですが、テストはモックを使用するため API キーなしで実行できます。
 このフォルダでは `.venv` と依存パッケージを準備済みです。
 
 ## 判定の仕組み
